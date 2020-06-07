@@ -282,7 +282,6 @@ fn handle_key(tcod: &mut Tcod, objects: &mut [Object], game: &mut Game) -> Playe
     use tcod::input::KeyCode::*;
     use PlayerAction::*;
     let player_alive = objects[PLAYER].alive;
-    println!("{}", tcod.key.text());
     match (tcod.key, tcod.key.text(), player_alive) {
         (Key { code: Up, .. }, _, true) => {
             player_move_or_attack(0, -1, game, objects);
@@ -696,7 +695,6 @@ fn main() {
         let fov_recompute = previous_player_position != objects[PLAYER].pos();
         render_all(&mut tcod, &mut game, &objects, fov_recompute);
         tcod.root.flush();
-        tcod.root.wait_for_keypress(true);
         previous_player_position = objects[PLAYER].pos();
         let player_action = handle_key(&mut tcod, &mut objects, &mut game);
         if player_action == PlayerAction::Exit {
